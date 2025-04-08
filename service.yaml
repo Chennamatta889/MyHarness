@@ -7,6 +7,6 @@ spec:
   ports:
   - port: 80
     targetPort: 80
-    nodePort: 30080  # exposed port on the VM
+    nodePort: 8080  # exposed port on the VM
   selector:
     app: react-app
