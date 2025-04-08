@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app
+  name: react-app
 spec:
-  replicas: 1
+  replicas: 2  # run 2 pods
   selector:
     matchLabels:
-      app: my-app
+      app: react-app
   template:
     metadata:
       labels:
-        app: my-app
+        app: react-app
     spec:
       containers:
-      - name: my-app
-        image: nginx:latest
+      - name: react-app
+        image: harnesstraining/dotnet-frontend:latest
         ports:
         - containerPort: 80
