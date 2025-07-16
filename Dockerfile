@@ -1,27 +1,10 @@
-# Use an official Node.js image as the base
-FROM node:18-alpine AS build
+FROM us-docker.pkg.dev/gar-prod-setup/harness-public/harness/delegate:25.06.86202
 
-# Set working directory
-WORKDIR /app
+USER root
 
-# Copy package.json and install dependencies
-COPY package.json package-lock.json ./
-RUN npm install
+# Install Python and pip
+RUN yum -y update && \
+    yum -y install python3 python3-pip && \
+    yum clean all
 
-# Copy the rest of the project files
-COPY . .
-
-# Build the React app
-RUN npm run build
-
-# Use Nginx to serve the static files
-FROM nginx:alpine
-COPY --from=build /app/build /usr/share/nginx/html
-
-# Expose the port Nginx will run on
-EXPOSE 80
-
-#Trigger editing
-
-# Start Nginx server
-CMD ["nginx", "-g", "daemon off;"]
+USER harness
