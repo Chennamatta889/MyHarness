@@ -2,9 +2,10 @@ FROM us-docker.pkg.dev/gar-prod-setup/harness-public/harness/delegate:25.06.8620
 
 USER root
 
-# Install Python and pip
-RUN yum -y update && \
-    yum -y install python3 python3-pip && \
-    yum clean all
+RUN apt-get update \
+    && apt-get install -y python3 python3-pip \
+    && rm -rf /var/lib/apt/lists/*
 
-USER harness
+USER 1000
+
+CMD ["python3", "--version"]
